@@ -75,7 +75,7 @@ B3 := C3.Slice(Start, BLOCK_SIZE)
 // Process each round
 for (R := 0, R < ROUNDS, R += 1):
     W, Z := RC4HASH_ROUND(B0, B1, B2, B3, R)
-    State := State XOR RC4HASH_ROTATE(Z, R)
+    State := State xor RC4HASH_ROTATE(Z, R)
     B0 := RC4(B0, W)
     B1 := RC4(B1, W)
     B2 := RC4(B2, W)
@@ -94,9 +94,9 @@ Once all rounds have concluded, we perform one final RC4 encryption using the fi
 key `F`. Next, we XOR the left half of `Block` with the right half to obtain the final hash.
 
 ```
-Block := RC4(F, Block)
-Left := Block.Slice(0, BLOCK_SIZE / 2)
-Right := Block.Slice(BLOCK_SIZE / 2)
+State := RC4(F, State)
+Left := State.Slice(0, BLOCK_SIZE / 2)
+Right := State.Slice(BLOCK_SIZE / 2)
 
 return (Left xor Right)
 ```
@@ -139,3 +139,23 @@ Rotate every word in `X` to the left a specific number of times, based on the ro
 | 3 | 7 |
 
 These constants were taken from the design of ChaCha.
+
+## Security
+
+Really? *Really?*
+
+## License
+
+Permission to use, copy, modify, and/or distribute this software for any purpose with
+or without fee is hereby granted, provided that the above copyright notice and this 
+permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD 
+TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. 
+IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL
+DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER
+IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN 
+CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+If you ever actually use RC4Hash, instead of a standardized hash function, I retain
+the right stare disapprovingly into your eyes and ask, "Why?"
