@@ -1,0 +1,16 @@
+{
+  "name": "soatok/rc4hash",
+  "license": "ISC",
+  "autoload": {
+    "files": [
+      "constants.php",
+      "rc4.php",
+      "rc4hash.php"
+    ]
+  },
+  "require": {
+    "php": "^8",
+    "paragonie/constant_time_encoding": "^2",
+    "ext-sodium": "*"
+  }
+}
